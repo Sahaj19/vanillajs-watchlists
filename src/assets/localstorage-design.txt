@@ -1,0 +1,67 @@
+Step-1 ( when no user has signed up )
+
+{
+  "currentUser": null,
+  "users": []
+}
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Step-2 ( when a user sign ups )
+
+{
+  "currentUser": "user1@example.com",
+  "users": [
+    {
+      "username": "user1@example.com",
+      "watchlist": []
+    }
+  ]
+}
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Step-3 ( When the User Creates a Watchlist e.g "Tom Cruise Movies" )
+
+{
+  "currentUser": "user1@example.com",
+  "users": [
+    {
+      "username": "user1@example.com",
+      "watchlists": [
+        {
+          "imdbID": "tt1234567",
+          "title": "Mission Impossible",
+          "year": "1996",
+          "poster": "https://...",
+          "plot": "An American agent...",
+          "watched": false
+        }
+      ]
+    }
+  ]
+}
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Step-4 ( when the user logs out )
+
+{
+  "currentUser": null,
+  "users": [
+    {
+      "username": "user1@example.com",
+      "watchlists": [
+        {
+          "imdbID": "tt1234567",
+          "title": "Mission Impossible",
+          "year": "1996",
+          "poster": "https://...",
+          "plot": "An American agent...",
+          "watched": false
+        }
+      ]
+    }
+  ]
+}
+

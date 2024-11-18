@@ -1,0 +1,9 @@
+API = https://www.omdbapi.com/?s=query&apikey=e554dc1e
+
+
+//complete full app using vanilla js including styling & responsiveness
+//understand contextAPI 
+//start building it in react.js
+
+
+//you will be selected.
