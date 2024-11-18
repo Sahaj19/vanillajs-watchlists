@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="A Movie Watchlist App where users can sign up, log in, log out and manage their personal movie watchlists.">
+  <meta name="keywords" content="Movie Watchlist, Movie App, Personal Watchlist, Sign Up, Log In and Log Out">
+  <title>Movie Watchlist App - Authentication</title>
+  <link rel="stylesheet" href="./src/css/style.css">
+  <link rel="stylesheet" href="./src/css/signup-login.css">
+</head>
+<body>
+  <section class="container">
+
+    <div id="signUpFormDiv" class="authFormDiv">
+      <h1>Sign up on watchlists</h1>
+      <form id="signUpForm" class="authForm">
+        <input type="email" placeholder="enter your email (not necessarily your google linked email)" autocomplete="off" autofocus required>
+        <button>Sign Up</button>
+      </form>
+      <small>Already Registered : <button id="logInBtn" class="authBtn">Log In</button></small>
+    </div>
+
+    <div id="logInFormDiv" class="authFormDiv">
+      <h1>Log in on watchlists</h1>
+      <form id="logInForm" class="authForm">
+        <input type="email" placeholder="enter your registered email" autocomplete="off" autofocus required>
+        <button>Log In</button>
+      </form>
+      <small>New user : <button id="signUpBtn" class="authBtn">Sign up</button></small>
+    </div>
+
+  </section>
+  <script src="./src/js/signup-login.js"></script>
+</body>
+</html>

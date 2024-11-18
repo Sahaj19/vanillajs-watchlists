@@ -1,0 +1,2 @@
+- complete moviedetails.html data fetching logic.
+- 

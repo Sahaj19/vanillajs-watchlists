@@ -1,0 +1,136 @@
+.container {
+  height: 100vh;
+  display: flex;
+}
+
+.activeNavLink {
+  background-color: #f33f40;
+  color: #fff;
+}
+
+/* left navigation styling */
+
+.container #left_sidebar {
+  flex-basis: 20%;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  border-right: 2px solid #ececec;
+}
+
+.container #left_sidebar h1 {
+  font-size: 35px;
+  color: #f33f40;
+  margin-bottom: 20px;
+}
+
+.container #left_sidebar p:nth-of-type(1) {
+  margin-bottom: 10px;
+}
+
+.container #left_sidebar p {
+  border: 1px solid #ececec;
+  padding: 10px 5px;
+  border-radius: 5px;
+}
+
+.container #left_sidebar p:hover {
+  background-color: #f33f40;
+  color: #fff;
+  cursor: pointer;
+}
+
+.container #left_sidebar .authDiv {
+  margin-top: auto;
+  border: 1px solid #ececec;
+  display: flex;
+  align-items: center;
+  padding: 10px 5px;
+  gap: 5px;
+  border-radius: 5px;
+}
+
+.container #left_sidebar .authDiv span .bi-person-circle::before {
+  font-size: 18px;
+} 
+
+.container #left_sidebar .authDiv #moreOptions {
+  margin-left: auto;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+
+.container #left_sidebar .authDiv #moreOptions .bi-three-dots::before {
+  font-size: 24px;
+}
+
+/* right content styling */
+
+.container #right_content {
+  flex-basis: 80%;
+  padding: 30px 60px;
+}
+
+.container #right_content #homeDiv .upperInfoDiv {
+  border: 2px solid #aa5a5c;
+  border-radius: 10px;
+  padding: 15px;
+}
+
+.container #right_content #homeDiv .upperInfoDiv h2 {
+  font-size: 40px;
+  font-weight: 100;
+  margin-bottom: 25px;
+}
+
+.container #right_content #homeDiv .upperInfoDiv h2 .redHeading {
+  color: #f33f40;
+}
+
+.container #right_content #homeDiv .upperInfoDiv p {
+  font-size: 18px;
+}
+
+.container #right_content #homeDiv .upperInfoDiv p:nth-of-type(1) {
+  margin-bottom: 12px;
+}
+
+.container #right_content #homeDiv .upperInfoDiv p:nth-of-type(2) .bi-bookmark-plus-fill::before {
+  font-size: 25px;
+}
+
+.container #right_content #homeDiv #moviesSearchForm {
+  border: 2px solid #ececec;
+  display: flex;
+  align-items: center;
+  margin: 25px 0;
+  border-radius: 10px;
+  padding-left: 10px;
+}
+
+.container #right_content #homeDiv #moviesSearchForm input {
+  border: none;
+  outline: none;
+  flex: 1;
+  padding: 15px;
+  font-size: 15px;
+}
+
+.container #right_content #homeDiv #moviesSearchForm button {
+  padding: 15px 25px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  background-color: #f33f40;
+  color: #fff;
+  font-size: 15px;
+}
+
+.container #right_content #homeDiv #moviesSearchForm span .bi-search::before {
+  font-size: 20px;
+}
+
+.container #right_content #myListsDiv {
+  display: none;
+}

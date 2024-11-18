@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="A Movie Watchlist App where users can sign up, log in, log out and manage their personal movie watchlists.">
+  <meta name="keywords" content="Movie Watchlist, Movie App, Personal Watchlist, Sign Up, Log In and Log Out">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="./src/css/style.css">
+  <link rel="stylesheet" href="./src/css/index.css">
+  <title>Movie Watchlist App</title>
+</head>
+<body>
+  <section class="container">
+    <section id="left_sidebar">
+      <h1>Watchlists</h1>
+      <p id="homeNavigationBtn" class="activeNavLink"><i class="bi bi-house-door-fill"></i>&nbsp;Home</p>
+      <p id="personalWatchlistNavigationBtn"><i class="bi bi-card-list"></i>&nbsp;My Lists</p>
+      <div class="authDiv">
+        <span><i class="bi bi-person-circle"></i></span>
+        <span id="currentUserEmail">sahaj@gmail.com</span>
+        <button id="moreOptions"><i class="bi bi-three-dots"></i></button>
+      </div>
+    </section>
+
+    <section id="right_content">
+      <div id="homeDiv">
+        <div class="upperInfoDiv">
+          <h2>Welcome to <span class="redHeading">Watchlists</span></h2>
+          <p>Browse movies, add them to your personal watchlists and share them with friends.</p>
+          <p>Just click the&nbsp;<i class="bi bi-bookmark-plus-fill"></i>&nbsp;to add a movie, the poster to see more details.</p>
+        </div>
+  
+        <form id="moviesSearchForm">
+          <span><i class="bi bi-search"></i></span>
+          <input type="text" autocomplete="off" required>
+          <button>Search</button>
+        </form>
+
+        <div id="moviesDataContainer"></div>
+      </div>
+      <div id="myListsDiv">
+        <p>watchlist div</p>
+      </div>
+    </section>
+  </section>
+  <script src="./src/js/index.js"></script>
+</body>
+</html>

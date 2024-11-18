@@ -1,0 +1,53 @@
+.container {
+  max-width: 800px;
+  margin: auto;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container .authFormDiv {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  width: 100%;
+  padding: 30px;
+  border-radius: 5px;
+}
+
+.container .authFormDiv h1 {
+  text-align: center;
+  color: #f33f40;
+  margin-bottom: 15px;
+}
+
+.container .authFormDiv .authForm {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.container .authFormDiv .authForm input {
+  flex: 1;
+  padding: 10px;
+}
+
+.container .authFormDiv .authForm button {
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #1d1d1d;
+  color: #ffffff;
+  outline: none;
+  border: none;
+  border-radius: 2px;
+}
+
+.container .authFormDiv .authBtn {
+  outline: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.container #logInFormDiv {
+  display: none;
+}
