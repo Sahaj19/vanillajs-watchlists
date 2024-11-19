@@ -1,2 +1,4 @@
-- complete moviedetails.html data fetching logic.
-- 
+- improve prev & next pagination btn
+- poster click to see full movie details
+
+- then authentication and fun stuff
