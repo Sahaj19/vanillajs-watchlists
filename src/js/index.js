@@ -66,6 +66,7 @@ let currentPageNum = document.querySelector("#pageNum");
 let nextBtn = document.querySelector("#nextBtn");
 
 function renderMovies() {
+  // console.log(paginatedMoviesData);
   moviesDataContainer.innerHTML = "";
   let startingIndex = (currentPage - 1) * moviesPerPage;
   let endingIndex = startingIndex + moviesPerPage;
@@ -80,7 +81,7 @@ function renderMovies() {
     return `
       <div class="movieDetails">
             <div class="upperPosterDiv">
-              <img src=${movie.Poster == "N/A" ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoWcWg0E8pSjBNi0TtiZsqu8uD2PAr_K11DA&s" : movie.Poster} alt=${movie.Title} title="${movie.Title}">
+              <img src=${movie.Poster == "N/A" ? "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoWcWg0E8pSjBNi0TtiZsqu8uD2PAr_K11DA&s" : movie.Poster} alt=${movie.Title} title="${movie.Title}" data-movieInfo="${movie.imdbID}">
               <span class="plusBtn"><i class="bi bi-bookmark-plus-fill"></i></span>
             </div>
             <div class="lowerInfoDiv">
@@ -92,6 +93,7 @@ function renderMovies() {
     `
   }).join("");
   updatePaginationBtnState();
+  moviePosterListener();
 }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -129,3 +131,23 @@ function updatePaginationBtnState() {
 
   currentPageNum.innerHTML = currentPage;
 }
+
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//individual movie details
+
+function moviePosterListener() {
+  let moviePosters = document.querySelectorAll(".movieDetails .upperPosterDiv img");
+  console.log(moviePosters);
+
+  moviePosters.forEach((moviePoster) => {
+    moviePoster.addEventListener("click", function() {
+      let movieID = moviePoster.getAttribute("data-movieInfo");
+      window.location.href = `moviedetails.html?movieID=${movieID}`;
+    })
+  })
+}
+
+
+
+

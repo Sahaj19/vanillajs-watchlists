@@ -2,8 +2,6 @@ API = https://www.omdbapi.com/?s=query&apikey=e554dc1e
 
 //movie add hogayi toh green + otherwise gray +
 //complete full app using vanilla js including styling,responsiveness,pagination
-//open moviedetails.html to new window
-//home par toh sirf poster par + sign hoga.
 //watchlist par poster par left me - sign hoga to remove and right tick hoga to ensure ki maine yeh movie dekh li hai.
 //personal movie watchlist id ke basis par chalegi...best rahega.
 

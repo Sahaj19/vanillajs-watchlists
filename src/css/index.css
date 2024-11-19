@@ -154,7 +154,6 @@
 .container #right_content #moviesDataContainer {
   display: grid;
   grid-template-columns: repeat(3, 300px);
-  /* grid-template-rows: 500px; */
   justify-content: space-between;
 }
 
@@ -188,6 +187,11 @@
   border-top-right-radius: 5px;
 }
 
+.container #right_content #moviesDataContainer .movieDetails .upperPosterDiv img:hover {
+  cursor: pointer;
+  transform: scale(1.01);
+}
+
 .container #right_content #moviesDataContainer .movieDetails .lowerInfoDiv {
   flex-basis: 30%;
   display: flex;
@@ -198,6 +202,24 @@
   background-color: #ececec;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+}
+
+.container #right_content #homeDiv .paginationDiv {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.container #right_content #homeDiv .paginationDiv #prevBtn,
+.container #right_content #homeDiv .paginationDiv #nextBtn {
+  color: #fff;
+  background-color: #f33f40;
+  border: none;
+  outline: none;
+  padding: 6px 15px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 
