@@ -19,7 +19,7 @@
       <p id="personalWatchlistNavigationBtn" class="navLink" data-target="myListsDiv"><i class="bi bi-card-list"></i>&nbsp;My Lists <span id="listCounter">0</span></p>
       <div class="authDiv">
         <span><i class="bi bi-person-circle"></i></span>
-        <span id="currentUserEmail">sahaj@gmail.com</span>
+        <span id="currentUserEmail"></span>
         <button id="moreOptions"><i class="bi bi-three-dots"></i></button>
       </div>
     </section>
@@ -27,8 +27,8 @@
     <section id="right_content">
       <div id="homeDiv" class="contentDiv">
         <div class="upperInfoDiv">
-          <h2>Welcome to <span class="redHeading">Watchlists</span></h2>
-          <p>Browse movies, add them to your personal watchlists and share them with friends.</p>
+          <h2>Welcome to&nbsp;<span class="redHeading">Watchlists</span></h2>
+          <p>Browse movies, add them to your personal watchlist and share them with friends.</p>
           <p>Just click the&nbsp;<i class="bi bi-bookmark-plus-fill"></i>&nbsp;to add a movie, the poster to see more details.</p>
         </div>
   
@@ -39,17 +39,8 @@
         </form>
 
         <div id="moviesDataContainer">
-          <!-- <div class="movieDetails">
-            <div class="upperPosterDiv">
-              <img src="https://m.media-amazon.com/images/M/MV5BNGYxNzgzNTQtY2U0OC00NzU2LTgxZmYtNmZkMmVlMjgyMzM3XkEyXkFqcGc@._V1_SX300.jpg" alt="image">
-              <span id="plusBtn"><i class="bi bi-bookmark-plus-fill"></i></span>
-            </div>
-            <div class="lowerInfoDiv">
-              <p id="movieTitle">Tom Clancy's Jack Ryan</p>
-              <p id="movieYear">2018–2023</p>
-              <p><span id="ratingEmoji">&#128522;</span>&nbsp;<span id="movieRating">90</span>/100</p>
-            </div>
-          </div> -->
+          <div class="loader"></div>
+          <!-- here movies data will come dynamically -->
         </div>
 
         <div class="paginationDiv">
@@ -61,7 +52,12 @@
 
 
       <div id="myListsDiv" class="contentDiv">
-        <p>watchlist div</p>
+        <div class="upperInfoDiv">
+          <h2>Your Personal&nbsp;<span class="redHeading">Watchlist</span></h2>
+          <p>Just click the&nbsp;<i class="bi bi-bookmark-dash-fill"></i>&nbsp;to remove a movie, the poster to see more details, and&nbsp;<i class="bi bi-check-circle-fill"></i> to mark the movie as watched.</p>
+        </div>
+
+        <div class="watchlistDiv"></div>
       </div>
     </section>
   </section>

@@ -1,5 +1,13 @@
-- moviedetails.html
-- complete authentication
-- error handling and edge cases
-- responsiveness
-- then finally convert it into react.js 
+//add personal watchlist functionality
+//remove (alert) & mark as watched (green tick toggle)
+//if more than 3 movies -> pagination.
+
+
+//add three dots functionality
+//when guest is written (aka when user is not logged in)
+ - sign up
+ - log in
+
+//when email is written (aka when user is logged in)
+- log out
+- log out & delete account
