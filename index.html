@@ -20,7 +20,12 @@
       <div class="authDiv">
         <span><i class="bi bi-person-circle"></i></span>
         <span id="currentUserEmail"></span>
-        <button id="moreOptions"><i class="bi bi-three-dots"></i></button>
+        <button id="moreOptions" aria-label="More options"><i class="bi bi-three-dots"></i></button>
+        <div class="loginStatusDiv" style="display: none;">
+          <a href="signup-login.html" id="signInLink">Sign In</a>
+          <button id="logoutBtn" style="display: none;">Log out</button>
+        </div>
+
       </div>
     </section>
 
@@ -57,7 +62,9 @@
           <p>Just click the&nbsp;<i class="bi bi-bookmark-dash-fill"></i>&nbsp;to remove a movie, the poster to see more details, and&nbsp;<i class="bi bi-check-circle-fill"></i> to mark the movie as watched.</p>
         </div>
 
-        <div class="watchlistDiv"></div>
+        <div class="watchlistDiv">
+          <!-- here watchlist data will come dynamically -->
+        </div>
       </div>
     </section>
   </section>

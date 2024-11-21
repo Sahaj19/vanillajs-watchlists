@@ -16,6 +16,33 @@
   flex-direction: column;
   padding: 15px;
   border-right: 2px solid #ececec;
+  position: relative;
+}
+
+.container #left_sidebar .loginStatusDiv {
+  position: absolute;
+  bottom: 70px;
+  right: 15px;
+  padding: 20px 10px;
+  background: #ececec;
+  border-radius: 5px;
+}
+
+.container #left_sidebar .loginStatusDiv  #logoutBtn {
+  display: block;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #f33f40;
+  border: none;
+  color: #fff;
+}
+.container #left_sidebar .loginStatusDiv a {
+  display: block;
+  text-decoration: none;
+  color: #fff;
+  background-color: #f33f40;
+  padding: 5px 10px;
+  border-radius: 5px;
 }
 
 .container #left_sidebar h1 {
@@ -77,6 +104,11 @@
   outline: none;
   border: none;
   background-color: transparent;
+  cursor: pointer;
+}
+
+.container #left_sidebar .authDiv #moreOptions:hover {
+  color: rgba(0,0,0,0.8);
 }
 
 .container #left_sidebar .authDiv #moreOptions .bi-three-dots::before {
@@ -154,7 +186,8 @@
 .container #right_content #moviesDataContainer {
   display: grid;
   grid-template-columns: repeat(3, 300px);
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 25px;
 }
 
 .loader {
@@ -275,4 +308,68 @@
 .container #right_content #myListsDiv .upperInfoDiv p  .bi-check-circle-fill::before,
 .container #right_content #myListsDiv .upperInfoDiv p  .bi-bookmark-dash-fill::before  {
   font-size: 25px;
+}
+
+
+
+/* watchlist div styling */
+
+.container #right_content #myListsDiv .watchlistDiv {
+  display: grid;
+  grid-template-columns: repeat(3,300px);
+  justify-content: flex-start;
+  gap: 25px;
+  margin: 20px 0;
+}
+
+.container #right_content #myListsDiv .watchlistDiv  .watchlistMovieDiv {
+  margin-bottom: 10px;
+}
+
+.container #right_content #myListsDiv .watchlistDiv  .watchlistMovieDiv .imgDiv {
+  width: 300px;
+  height: 350px;
+}
+
+
+
+.container #right_content #myListsDiv .watchlistDiv  .watchlistMovieDiv .imgDiv img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.container #right_content #myListsDiv .watchlistDiv  .watchlistMovieDiv .imgDiv img:hover {
+  cursor: pointer;
+  transform: scale(1.01);
+}
+
+.container #right_content #myListsDiv .watchlistDiv  .watchlistMovieDiv .controlsDiv {
+  padding: 10px;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #ececec;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+
+.container #right_content #myListsDiv .watchlistDiv  .watchlistMovieDiv .controlsDiv .controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.container #right_content #myListsDiv .watchlistDiv  .watchlistMovieDiv .controlsDiv .controls span .bi-bookmark-dash-fill::before,.container #right_content #myListsDiv .watchlistDiv  .watchlistMovieDiv .controlsDiv .controls span .bi-check-circle-fill::before {
+  font-size: 25px;
+  cursor: pointer;
+}
+
+
+.beforeLoginDiv,.afterLoginDiv {
+  display: none;
 }

@@ -12,12 +12,14 @@ let navListCounter = document.querySelector("#listCounter");
 let currentUserEmail = document.querySelector("#currentUserEmail");
 let loggedInUser = JSON.parse(localStorage.getItem("userDetails"))?.currentUser;
 
-if(!loggedInUser) {
-  currentUserEmail.innerHTML = "Guest";
-  currentUserEmail.setAttribute("title", "Guest");
-}else {
-  currentUserEmail.innerHTML = loggedInUser.length <= 20 ? loggedInUser : loggedInUser.slice(0,20) + "...";
-  currentUserEmail.setAttribute("title", loggedInUser);
+function updateUserName() {  
+  if(!loggedInUser) {
+    currentUserEmail.innerHTML = "Guest";
+    currentUserEmail.setAttribute("title", "Guest");
+  }else {
+    currentUserEmail.innerHTML = loggedInUser.length <= 20 ? loggedInUser : loggedInUser.slice(0,20) + "...";
+    currentUserEmail.setAttribute("title", loggedInUser);
+  }
 }
 
 function updateNavListCounter() {
@@ -33,6 +35,7 @@ function updateNavListCounter() {
 }
 
 updateNavListCounter();
+updateUserName();
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ 
 //toggling content divs based on navigation buttons (its scalable now)
@@ -210,7 +213,6 @@ function moviePosterListener() {
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //adding to personal watchlist functionality
 
-
 function plusBtnHandler() {
   let userDetails = JSON.parse(localStorage.getItem("userDetails"))
   let plusBtns = document.querySelectorAll(".plusBtn");
@@ -224,9 +226,9 @@ function plusBtnHandler() {
       userDetails.users.find((user) => user.username === userDetails.currentUser)
         .personalWatchlist.includes(movieID)
     ) {
-      plusBtn.style.color = "green"; // Mark as added
+      plusBtn.style.color = "green"; // added
     } else {
-      plusBtn.style.color = "gray"; // Mark as not added
+      plusBtn.style.color = "gray"; // removed/not added
     }
     
     plusBtn.addEventListener("click", function() {
@@ -253,6 +255,7 @@ function plusBtnHandler() {
 
       localStorage.setItem("userDetails", JSON.stringify(userDetails));
       updateNavListCounter();
+      renderWatchlist();
     })
   })
 }
@@ -261,3 +264,203 @@ function plusBtnHandler() {
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //fetching data from user's personal watchlist
 //rendering user's added movies.
+
+let watchlistDiv = document.querySelector(".watchlistDiv");
+
+function renderWatchlist() {
+  let userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  let loggedInUser = userDetails?.currentUser;
+
+  if(!loggedInUser) {
+    watchlistDiv.innerHTML = `<p>Please log in to view/edit your watchlist.</p>`
+    return;
+  }
+
+  let currentUser = userDetails.users.find((user) => user.username === loggedInUser);
+  let currentUserWatchlist = currentUser?.personalWatchlist || [];
+
+  // console.log(currentUserWatchlist);
+
+  if(currentUserWatchlist.length === 0) {
+    watchlistDiv.innerHTML = `<p>Your Watchlist is Empty!</p>`
+    return;
+  }
+
+  watchlistDiv.innerHTML = `<p>Loading...</p>`;
+
+  //fetching & rendering personal watchlist
+  let personalDataPromises = currentUserWatchlist.map((movieID) => {
+    return fetch(`https://www.omdbapi.com/?i=${movieID}&apikey=e554dc1e`)
+    .then((res) => res.json())
+    .catch((error) => console.log(error));
+  })
+
+  //movie array -> mapping -> rendering
+  Promise.all(personalDataPromises)
+  .then((movies) => {
+    watchlistDiv.innerHTML = movies.map((movie) => {
+      return `
+        <div class="watchlistMovieDiv">
+          <div class="imgDiv">
+            <img src="${movie.Poster !== "N/A" ? movie.Poster : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoWcWg0E8pSjBNi0TtiZsqu8uD2PAr_K11DA&s'}"  alt="${movie.Title}" title="${movie.Title}" onclick=showMovieDetails("${movie.imdbID}")>
+          </div>
+          <div class="controlsDiv">
+            <p title="${movie.Title}" >${movie.Title.length <= 50 ? movie.Title : movie.Title.slice(0,50) + "..."}</p>
+            <div class="controls">
+              <span class="removeBtn" data-movieID="${movie.imdbID}"><i class="bi bi-bookmark-dash-fill"></i></span>
+              <span class="watchedBtn" data-movieID="${movie.imdbID}"><i class="bi bi-check-circle-fill"></i></span>
+            </div>
+          </div>
+        </div>
+      `
+    }).join("")
+
+    // let watchedBtns = document.querySelectorAll(".watchedBtn");
+    // watchedBtns.forEach((btn) => {
+    //   let movieID = btn.getAttribute("data-movieID");
+    //   markMovieAsWatched(movieID, btn);
+    // });
+
+    removeWatchedFunctionality();
+  })
+}
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+function removeWatchedFunctionality() {
+  let removeBtns = document.querySelectorAll(".removeBtn");
+  let watchedBtns = document.querySelectorAll(".watchedBtn");
+
+  removeBtns.forEach((removeBtn) => {
+    removeBtn.addEventListener("click", function() {
+      let movieID = removeBtn.getAttribute("data-movieID");
+      removeMovie(movieID);
+    })
+  })
+
+  watchedBtns.forEach((watchBtn) => {
+    watchBtn.addEventListener("click", function() {
+      let movieID = watchBtn.getAttribute("data-movieID");
+      markMovieAsWatched(movieID, this);
+    })
+  })
+}
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+function showMovieDetails(movieID) {
+  window.location.href = `moviedetails.html?movieID=${movieID}`;
+}
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+function removeMovie(movieID) {
+  let warning = confirm("Are you sure you want to remove this movie from your personal watchlist?");
+
+  if(!warning) return;
+
+  let userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  let loggedInUser = userDetails?.currentUser;
+
+  if(!loggedInUser) return;
+
+  let currentUser = userDetails.users.find((user) => user.username === loggedInUser);
+  currentUser.personalWatchlist = currentUser.personalWatchlist.filter((id) => id !== movieID);
+  localStorage.setItem("userDetails", JSON.stringify(userDetails));
+  renderWatchlist();
+  updateNavListCounter();
+  plusBtnHandler();
+}
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+function markMovieAsWatched(movieID, btn) {
+  let userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  let loggedInUser = userDetails?.currentUser;
+
+  if(!loggedInUser) return;
+
+  let currentUser = userDetails.users.find((user) => user.username === loggedInUser);
+
+  if(!currentUser.watchedMovies) {
+    currentUser.watchedMovies = [];
+  }
+
+  let watchedMovies = currentUser.watchedMovies;
+
+  if(watchedMovies.includes(movieID)) {
+    watchedMovies = watchedMovies.filter((id) => id !== movieID);
+  }else {
+    watchedMovies.push(movieID);
+  }
+
+  currentUser.watchedMovies = watchedMovies;
+  localStorage.setItem("userDetails", JSON.stringify(userDetails));
+
+  updateWatchedBtnState(movieID, btn);
+}
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+function updateWatchedBtnState(movieID, btn) {
+  let userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  let loggedInUser = userDetails?.currentUser;
+
+  if (!loggedInUser) return;
+
+  let currentUser = userDetails.users.find((user) => user.username === loggedInUser);
+
+  if (currentUser?.watchedMovies.includes(movieID)) {
+    btn.style.color = "green";
+  } else {
+    btn.style.color = "gray";
+  }
+}
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+renderWatchlist();
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+// Function to toggle login status and update content accordingly
+
+function toggleLoginStatus() {
+  let userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  let loggedInUser = userDetails?.currentUser;
+
+  let loginStatusDiv = document.querySelector(".loginStatusDiv");
+  let signInLink = document.querySelector("#signInLink");
+  let logoutBtn = document.querySelector("#logoutBtn");
+
+  if (loggedInUser) {
+    signInLink.style.display = "none";
+    logoutBtn.style.display = "block";
+  } else {
+    signInLink.style.display = "block";
+    logoutBtn.style.display = "none";
+  }
+
+  if(loginStatusDiv.style.display === "none") {
+    loginStatusDiv.style.display = "block";
+  }else {
+    loginStatusDiv.style.display = "none";
+  }
+}
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Event listener for the "More Options" button (three dots)
+document.querySelector("#moreOptions").addEventListener("click", function() {
+  toggleLoginStatus();
+});
+
+//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+document.querySelector("#logoutBtn").addEventListener("click", function() {
+  let userDetails = JSON.parse(localStorage.getItem("userDetails"));
+  if (userDetails) {
+    userDetails.currentUser = null;  // Clear current user
+    localStorage.setItem("userDetails", JSON.stringify(userDetails));
+  }
+
+  // After logging out, update the UI to reflect login options
+  toggleLoginStatus();
+  updateNavListCounter();
+  currentUserEmail.innerHTML = "Guest";
+  currentUserEmail.setAttribute("title", "Guest");
+  renderWatchlist();
+  plusBtnHandler();
+});
