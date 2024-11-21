@@ -43,7 +43,7 @@ async function fetchIndividualMovieDetails(movieID) {
 function renderMovie(data) {
   return movieDetailsDiv.innerHTML = `
     <div class="leftPosterDiv">
-      <img src="${data.Poster !== "N/A" ? data.Poster : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoWcWg0E8pSjBNi0TtiZsqu8uD2PAr_K11DA&s'}"  alt="${data.Title}" title="${data.Title}" >
+      <img src="${data.Poster !== "N/A" ? data.Poster : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoWcWg0E8pSjBNi0TtiZsqu8uD2PAr_K11DA&s'}"  alt="${data.Title}" title="${data.Title}" loading="lazy" >
     </div>
     <div class="rightInfoDiv">
       <h1>Movie Details</h1>

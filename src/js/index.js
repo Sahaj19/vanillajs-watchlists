@@ -73,29 +73,33 @@ let moviesPerPage = 3;
 moviesSearchForm.addEventListener("submit", function(event) {
   event.preventDefault();
   let inputValue = movieInput.value.trim().toLowerCase();
-  fetchMovies(inputValue);
+  if (inputValue) {
+    loader.style.display = "block";
+    paginationDiv.style.display = "none";
+    moviesDataContainer.innerHTML = "";
+    fetchMovies(inputValue);
+  }
 })
 
 async function fetchMovies(query) {
-  loader.style.display = "block";
   try {
   let response = await fetch(`https://www.omdbapi.com/?s=${query}&apikey=e554dc1e`);
   let data = await response.json();
 
   if(data.Response === "False") {
-
+    moviesDataContainer.innerHTML = "<p>No movies found. Please try a different search.</p>";
+    return;
   }
   
-  let movieDataPromises;
-  if(data.Response === "True") {
-    movieDataPromises = data.Search.map(async (movie) => {
-      let dataResponse = await fetch(`https://www.omdbapi.com/?i=${movie.imdbID}&apikey=e554dc1e`);
-      return dataResponse.json();
-    })
-  }
+  let movieDataPromises = data.Search.map(async (movie) => {
+    let dataResponse = await fetch(`https://www.omdbapi.com/?i=${movie.imdbID}&apikey=e554dc1e`);
+    return dataResponse.json();
+  })
+  
 
   let completeMovieDetails = await Promise.all(movieDataPromises);
   paginatedMoviesData = completeMovieDetails
+  currentPage = 1;
   renderMovies();
   }catch(error) {
     console.log(error);
@@ -289,10 +293,13 @@ function renderWatchlist() {
   watchlistDiv.innerHTML = `<p>Loading...</p>`;
 
   //fetching & rendering personal watchlist
-  let personalDataPromises = currentUserWatchlist.map((movieID) => {
-    return fetch(`https://www.omdbapi.com/?i=${movieID}&apikey=e554dc1e`)
-    .then((res) => res.json())
-    .catch((error) => console.log(error));
+  let personalDataPromises = currentUserWatchlist.map(async (movieID) => {
+    try {
+      const res = await fetch(`https://www.omdbapi.com/?i=${movieID}&apikey=e554dc1e`);
+      return await res.json();
+    } catch (error) {
+      return console.log(error);
+    }
   })
 
   //movie array -> mapping -> rendering
@@ -302,7 +309,7 @@ function renderWatchlist() {
       return `
         <div class="watchlistMovieDiv">
           <div class="imgDiv">
-            <img src="${movie.Poster !== "N/A" ? movie.Poster : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoWcWg0E8pSjBNi0TtiZsqu8uD2PAr_K11DA&s'}"  alt="${movie.Title}" title="${movie.Title}" onclick=showMovieDetails("${movie.imdbID}")>
+            <img src="${movie.Poster !== "N/A" ? movie.Poster : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoWcWg0E8pSjBNi0TtiZsqu8uD2PAr_K11DA&s'}"  alt="${movie.Title}" title="${movie.Title}" onclick=showMovieDetails("${movie.imdbID}") loading="lazy" >
           </div>
           <div class="controlsDiv">
             <p title="${movie.Title}" >${movie.Title.length <= 50 ? movie.Title : movie.Title.slice(0,50) + "..."}</p>
@@ -314,14 +321,8 @@ function renderWatchlist() {
         </div>
       `
     }).join("")
-
-    // let watchedBtns = document.querySelectorAll(".watchedBtn");
-    // watchedBtns.forEach((btn) => {
-    //   let movieID = btn.getAttribute("data-movieID");
-    //   markMovieAsWatched(movieID, btn);
-    // });
-
     removeWatchedFunctionality();
+    updateWatchedBtnState();  
   })
 }
 
@@ -340,6 +341,7 @@ function removeWatchedFunctionality() {
   watchedBtns.forEach((watchBtn) => {
     watchBtn.addEventListener("click", function() {
       let movieID = watchBtn.getAttribute("data-movieID");
+      console.log("button clicked - 1");
       markMovieAsWatched(movieID, this);
     })
   })
@@ -382,22 +384,21 @@ function markMovieAsWatched(movieID, btn) {
     currentUser.watchedMovies = [];
   }
 
-  let watchedMovies = currentUser.watchedMovies;
 
-  if(watchedMovies.includes(movieID)) {
-    watchedMovies = watchedMovies.filter((id) => id !== movieID);
-  }else {
-    watchedMovies.push(movieID);
+  if (!currentUser.watchedMovies.includes(movieID)) {
+    currentUser.watchedMovies.push(movieID);
+    btn.style.color = "green"; 
+  } else {
+    currentUser.watchedMovies = currentUser.watchedMovies.filter((id) => id !== movieID);
+    btn.style.color = "black"; 
   }
 
-  currentUser.watchedMovies = watchedMovies;
   localStorage.setItem("userDetails", JSON.stringify(userDetails));
-
-  updateWatchedBtnState(movieID, btn);
+  updateWatchedBtnState();
 }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-function updateWatchedBtnState(movieID, btn) {
+function updateWatchedBtnState() {
   let userDetails = JSON.parse(localStorage.getItem("userDetails"));
   let loggedInUser = userDetails?.currentUser;
 
@@ -405,11 +406,20 @@ function updateWatchedBtnState(movieID, btn) {
 
   let currentUser = userDetails.users.find((user) => user.username === loggedInUser);
 
-  if (currentUser?.watchedMovies.includes(movieID)) {
-    btn.style.color = "green";
-  } else {
-    btn.style.color = "gray";
-  }
+  let watchedMovies = currentUser?.watchedMovies || [];
+
+  // Update button colors based on the movies in the watched list
+  let watchedBtns = document.querySelectorAll(".watchedBtn");
+
+  watchedBtns.forEach((btn) => {
+    let movieID = btn.getAttribute("data-movieID");
+
+    if (watchedMovies.includes(movieID)) {
+      btn.style.color = "green";
+    } else {
+      btn.style.color = "black";
+    }
+  });
 }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -452,11 +462,10 @@ document.querySelector("#moreOptions").addEventListener("click", function() {
 document.querySelector("#logoutBtn").addEventListener("click", function() {
   let userDetails = JSON.parse(localStorage.getItem("userDetails"));
   if (userDetails) {
-    userDetails.currentUser = null;  // Clear current user
+    userDetails.currentUser = null;
     localStorage.setItem("userDetails", JSON.stringify(userDetails));
   }
 
-  // After logging out, update the UI to reflect login options
   toggleLoginStatus();
   updateNavListCounter();
   currentUserEmail.innerHTML = "Guest";

@@ -1,7 +1,6 @@
 .container {
   height: 100vh;
   display: flex;
-  /* flex-wrap: wrap; */
 }
 
 .activeNavLink {
@@ -378,69 +377,65 @@
 /* responsiveness */
 
 @media(max-width:1330px) {
-  .container #right_content #moviesDataContainer,
-  .container #right_content #myListsDiv .watchlistDiv {
-    grid-template-columns: repeat(2, 350px); 
-    gap: 15px;
-  }
+.container #right_content #moviesDataContainer,
+.container #right_content #myListsDiv .watchlistDiv {
+  grid-template-columns: repeat(2, 350px); 
+  gap: 15px;
+}
 
-  .container #right_content #myListsDiv .watchlistDiv  .watchlistMovieDiv .imgDiv{
-    width: 350px;
-  }
+.container #right_content #myListsDiv .watchlistDiv  .watchlistMovieDiv .imgDiv{
+  width: 350px;
+}
 }
 
 @media(max-width:940px) {
-  .container #right_content #moviesDataContainer,
-  .container #right_content #myListsDiv .watchlistDiv {
-    grid-template-columns: repeat(1, 350px);
-    justify-content: center; 
+.container #right_content #moviesDataContainer,
+.container #right_content #myListsDiv .watchlistDiv {
+  grid-template-columns: repeat(1, 350px);
+  justify-content: center; 
   }
 }
 
 @media (max-width: 768px) {
-  .container {
-    flex-direction: column; 
-  }
-
-  .container #left_sidebar .authDiv {
-    margin-top: 10px;
-  }
-
-  .container #left_sidebar {
-    border-right: none;
-    border-bottom: 2px solid #ececec;
-  }
-
-  .container #right_content {
-    flex-basis: 100%; 
-    padding: 20px;
-  }
-
-  .container #right_content #homeDiv .paginationDiv{
-    justify-content: center;
-  }
+.container {
+  flex-direction: column; 
 }
 
-/* @media(max-width:600px){
+.container #left_sidebar .authDiv {
+  margin-top: 10px;
+}
 
-} */
+.container #left_sidebar {
+  border-right: none;
+  border-bottom: 2px solid #ececec;
+}
+
+.container #right_content {
+  flex-basis: 100%; 
+  padding: 20px;
+}
+
+.container #right_content #homeDiv .paginationDiv{
+  justify-content: center;
+}
+}
 
 @media (max-width: 480px) {
-  .container #left_sidebar {
-    padding: 10px;
-  }
+.container #left_sidebar {
+  padding: 10px;
+}
 
-  .container #right_content {
-    padding: 15px;
-  }
+.container #right_content {
+  padding: 15px;
+}
 
-  .container #right_content #moviesSearchForm input {
-    padding: 10px;
-    font-size: 14px;
-  }
+.container #right_content #moviesSearchForm input {
+  padding: 10px;
+  font-size: 14px;
+}
 
-  .container #right_content #moviesSearchForm button {
-    padding: 10px 15px;
-    font-size: 14px;
+.container #right_content #moviesSearchForm button {
+  padding: 10px 15px;
+  font-size: 14px;
   }
 }

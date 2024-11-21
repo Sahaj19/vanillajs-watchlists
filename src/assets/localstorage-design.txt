@@ -28,39 +28,23 @@ Step-3 ( When the User Creates a Watchlist e.g "Tom Cruise Movies" )
   "users": [
     {
       "username": "user1@example.com",
-      "watchlists": [
-        {
-          "imdbID": "tt1234567",
-          "title": "Mission Impossible",
-          "year": "1996",
-          "poster": "https://...",
-          "plot": "An American agent...",
-          "watched": false
-        }
-      ]
+      "personalWatchlist": ["id1", "id2"];
+      "watchedMovies" : [];
     }
   ]
 }
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-Step-4 ( when the user logs out )
+Step-5 ( when the user logs out )
 
 {
   "currentUser": null,
   "users": [
     {
       "username": "user1@example.com",
-      "watchlists": [
-        {
-          "imdbID": "tt1234567",
-          "title": "Mission Impossible",
-          "year": "1996",
-          "poster": "https://...",
-          "plot": "An American agent...",
-          "watched": false
-        }
-      ]
+      "watchlists": ["id1", "id2"],
+      "watchedMovies" : ["id1","id2"]
     }
   ]
 }
