@@ -1,13 +1,6 @@
-//add personal watchlist functionality
-//remove (alert) & mark as watched (green tick toggle)
-//if more than 3 movies -> pagination.
+//first bug free your app
+//add responsiveness
 
 
-//add three dots functionality
-//when guest is written (aka when user is not logged in)
- - sign up
- - log in
-
-//when email is written (aka when user is logged in)
-- log out
-- log out & delete account
+//submit via email.
+//you will be selected...believe in yourself!

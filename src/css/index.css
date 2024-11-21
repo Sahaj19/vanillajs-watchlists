@@ -1,6 +1,7 @@
 .container {
   height: 100vh;
   display: flex;
+  /* flex-wrap: wrap; */
 }
 
 .activeNavLink {
@@ -235,7 +236,8 @@
 }
 
 .container #right_content #moviesDataContainer .movieDetails .upperPosterDiv img {
-  width: 300px;
+  min-width: 300px;
+  width: 100%;
   height: 350px;
   object-fit: fill;
   border-top-left-radius: 5px;
@@ -331,8 +333,6 @@
   height: 350px;
 }
 
-
-
 .container #right_content #myListsDiv .watchlistDiv  .watchlistMovieDiv .imgDiv img {
   width: 100%;
   height: 100%;
@@ -372,4 +372,72 @@
 
 .beforeLoginDiv,.afterLoginDiv {
   display: none;
+}
+
+
+/* responsiveness */
+
+@media(max-width:1330px) {
+  .container #right_content #moviesDataContainer,
+  .container #right_content #myListsDiv .watchlistDiv {
+    grid-template-columns: repeat(2, 350px); 
+    gap: 15px;
+  }
+
+  .container #right_content #myListsDiv .watchlistDiv  .watchlistMovieDiv .imgDiv{
+    width: 350px;
+  }
+}
+
+@media(max-width:940px) {
+  .container #right_content #moviesDataContainer,
+  .container #right_content #myListsDiv .watchlistDiv {
+    grid-template-columns: repeat(1, 350px);
+    justify-content: center; 
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; 
+  }
+
+  .container #left_sidebar {
+    flex-basis: 100%; 
+    border-right: none;
+    border-bottom: 2px solid #ececec;
+  }
+
+  .container #right_content {
+    flex-basis: 100%; 
+    padding: 20px;
+  }
+
+  .container #right_content #homeDiv .paginationDiv{
+    justify-content: center;
+  }
+}
+
+/* @media(max-width:600px){
+
+} */
+
+@media (max-width: 480px) {
+  .container #left_sidebar {
+    padding: 10px;
+  }
+
+  .container #right_content {
+    padding: 15px;
+  }
+
+  .container #right_content #moviesSearchForm input {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .container #right_content #moviesSearchForm button {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
 }
