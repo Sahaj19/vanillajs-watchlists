@@ -402,8 +402,11 @@
     flex-direction: column; 
   }
 
+  .container #left_sidebar .authDiv {
+    margin-top: 10px;
+  }
+
   .container #left_sidebar {
-    flex-basis: 100%; 
     border-right: none;
     border-bottom: 2px solid #ececec;
   }
